@@ -1,0 +1,14 @@
+The secret comes down to file sizes and computer memory. Let's do the math:
+
+- How big is a single number?
+  - In computer science, a 16-bit number (float16) takes up 2 bytes of data.
+
+- What about a billion numbers?
+  - If a model has 1 billion parameters stored in 16-bit precision:
+  - 1 billion x 2 bytes = 2,000,000,000 bytes, which is about 2 Gigabytes (GB).
+
+- What about SDXL-Turbo?
+  - SDXL-Turbo has roughly 3.5 billion parameters.
+  - At 16-bit precision (fp16), the file size is around 6 to 7 GB.
+
+- A 7 GB file is roughly the size of a modern video game or a high-definition movie. Your internet can download a 7 GB file in a few minutes, and your computer easily has enough storage space to save it and load it into your GPU's VRAM!

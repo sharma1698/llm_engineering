@@ -14,7 +14,7 @@ MODEL = "gpt-4.1-nano"
 DB_NAME = str(Path(__file__).parent.parent / "vector_db")
 
 # embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+embeddings = OpenAIEmbeddings(model="text-embedding-3-small")
 RETRIEVAL_K = 10
 
 SYSTEM_PROMPT = """
@@ -42,8 +42,17 @@ def combined_question(question: str, history: list[dict] = []) -> str:
     """
     Combine all the user's messages into a single string.
     """
-    prior = "\n".join(m["content"] for m in history if m["role"] == "user")
-    return prior + "\n" + question
+    # prior = "\n".join(m["content"] for m in history if m["role"] == "user")
+    # return prior + "\n" + question
+    user_messages = []
+
+    for m in history:
+        if m["role"] == "user" and isinstance(m["content"], str):
+            user_messages.append(m["content"])
+
+    prior = "\n".join(user_messages)
+
+    return f"{prior}\n{question}" if prior else question
 
 
 def answer_question(question: str, history: list[dict] = []) -> tuple[str, list[Document]]:

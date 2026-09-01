@@ -1,0 +1,21 @@
+**PEFT** stands for **Parameter-Efficient Fine-Tuning**. It is a technique used in machine learning to adapt large, pre-trained AI models for specific tasks without needing to retrain or modify all of the model's parameters.
+
+### Why is PEFT needed?
+
+Large AI models contain billions of parameters. Traditional fine-tuning requires updating every single parameter, which demands massive computing power, expensive GPUs, and large amounts of storage space for every new task.
+
+### How PEFT Works
+
+Instead of changing the entire model, PEFT **freezes the core pre-trained model** so its original knowledge remains untouched, and it only trains a very small fraction of extra parameters or layers (often less than 1% of the total model).
+
+### Popular PEFT Techniques
+
+* **LoRA (Low-Rank Adaptation):** The most popular method. It adds small, trainable matrices into the model layers to handle new tasks while keeping the original model weights frozen.
+* **Adapters:** Inserting small custom neural network layers into the model architecture for a specific job.
+* **Prompt Tuning:** Adding trainable virtual tokens to the input text to guide the model's output without altering its internal weights.
+
+### Key Benefits
+
+* **Lower Costs & Hardware Requirements:** You can fine-tune huge models using much less memory and cheaper hardware.
+* **Prevents Forgetting:** Because the main model weights stay frozen, the AI does not lose its general knowledge when learning a new task.
+* **Tiny File Sizes:** Instead of saving a massive multi-gigabyte copy of the model for every project, you only save tiny adapter files (sometimes just a few megabytes) that attach to a single base model.

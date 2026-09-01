@@ -5,11 +5,15 @@ from pathlib import Path
 import json
 import pickle
 from tqdm.notebook import tqdm
+from openai import OpenAI
 
 load_dotenv(override=True)
-groq = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-
-MODEL = "openai/gpt-oss-20b"
+openai = OpenAI()
+ollama_url = "http://localhost:11434/v1"
+groq = OpenAI(api_key="ollama", base_url=ollama_url)
+# groq = Groq(api_key=os.environ.get("GROQ_API_KEY"))
+# MODEL = "openai/gpt-oss-20b"
+MODEL = "llama3.2:1b"
 BATCHES_FOLDER = "batches"
 OUTPUT_FOLDER = "output"
 state = Path("batches.pkl")
@@ -68,7 +72,7 @@ class Batch:
 
     def send_file(self):
         batch_file = self.batches / self.filename
-        with batch_file.open("rb", encoding="utf-8") as f:
+        with batch_file.open("rb") as f:
             response = groq.files.create(file=f, purpose="batch")
         self.file_id = response.id
 
