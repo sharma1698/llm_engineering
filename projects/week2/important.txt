@@ -1,0 +1,1 @@
+jupyter nbconvert --to script book_flight.ipynb --output app
